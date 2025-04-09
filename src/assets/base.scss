@@ -1,0 +1,15 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  font-size: 16px;
+  padding: 16px;
+}
