@@ -11,7 +11,8 @@
 <style lang="scss" scoped>
 #header {
     width: 100%;
-    background-color: aqua;
+    background-color: gray;
     text-align: center;
+    color: white;
 }
 </style>

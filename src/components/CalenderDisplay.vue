@@ -2,10 +2,10 @@
 import { ref } from 'vue';
 import DateSlot from '../slots/DateSlot.vue';
 
-const dateNow = Date.now();
-const currentDate = new Date(dateNow).getDate();
-const currentYear = new Date(dateNow).getFullYear();
-const currentMonth = new Date(dateNow).getMonth()
+const dateNow = new Date();
+const currentDate = dateNow.getDate();
+const currentYear = dateNow.getFullYear();
+const currentMonth = dateNow.getMonth();
 const isLeapYear = ref(false);
 const daysInMonth = ref<string[]>([]);
 const daysInWeek = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
