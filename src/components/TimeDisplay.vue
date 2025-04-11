@@ -54,7 +54,8 @@ setInterval(updateTime, 1000);
     align-items: center;
     justify-content: space-between;
     width: 282px;
-    height: 153px;
+    height: 135px;
+    margin-bottom: 6px;
 }
 
 .time-display {
@@ -63,7 +64,7 @@ setInterval(updateTime, 1000);
     align-items: center;
     justify-content: center;
     width: 138px;
-    height: 153px;
+    height: 135px;
     background-color: grey;
     border-radius: 5px;
     box-shadow: 2px 2px 5px black;
@@ -78,7 +79,7 @@ setInterval(updateTime, 1000);
 .time-overlay {
     position: absolute;
     width: 138px;
-    height: 76px;
+    height: 70px;
     top: 0;
     left: 0;
     border-bottom: 1px solid white;

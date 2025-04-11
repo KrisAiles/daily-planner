@@ -25,7 +25,7 @@ function cycleQuotes() {
     count++;
 }
 
-setInterval(cycleQuotes, 30000);
+//setInterval(cycleQuotes, 30000);
 
 </script>
 
@@ -41,7 +41,7 @@ setInterval(cycleQuotes, 30000);
     width: 100%;
     height: 282px;
     padding: 23px;
-    background-image: url('/public/quote-background.jpg');
+    background-image: url('/quote-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
