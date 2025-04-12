@@ -1,3 +1,5 @@
+@use './variables.scss';
+
 *,
 *::before,
 *::after {
@@ -11,5 +13,6 @@ body {
   width: 100%;
   min-height: 100vh;
   font-size: 16px;
-  padding: 16px;
+  padding: 1rem;
+  background-color: variables.$olive-color;
 }

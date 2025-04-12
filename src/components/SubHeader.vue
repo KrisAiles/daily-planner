@@ -17,12 +17,16 @@ import QuoteDisplay from './QuoteDisplay.vue';
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/variables.scss';
+
 #date-quote-container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
     width: 100%;
     text-align: center;
-    border-bottom: 2px solid gray;
-    /*background-color: burlywood;*/
+    border-bottom: variables.$borders;
+    background-color: white;
 }
 
 </style>

@@ -9,10 +9,18 @@
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/variables.scss';
+
 #header {
     width: 100%;
-    background-color: gray;
+    background-color: white;
     text-align: center;
-    color: white;
+    border-bottom: variables.$borders;
+
+    h1 {
+        color: variables.$olive-color;
+        font-size: 32px;
+        font-weight: 600;
+    }
 }
 </style>

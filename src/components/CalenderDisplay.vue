@@ -119,7 +119,7 @@ function getCurrentMonth() {
                         <span>{{ day }}</span>
                     </DateSlot>
                 </div>
-                <div class="month-dates" v-for="num in daysInMonth" :key="num" :style="[num === String(currentDate) ? {backgroundColor: 'grey'} : {backgroundColor: 'olive'}]">
+                <div class="month-dates" v-for="num in daysInMonth" :key="num" :style="[num === String(currentDate) ? {backgroundColor: '#000080'} : {backgroundColor: '#808000'}]">
                     <DateSlot>
                         <span>{{ num }}</span>
                     </DateSlot>
@@ -130,7 +130,10 @@ function getCurrentMonth() {
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/variables.scss';
+
 #date-container {
+    flex: 0 1 auto;
     width: 328px;
     height: 328px;
     padding: 23px;
@@ -139,9 +142,9 @@ function getCurrentMonth() {
 #date-month {
     width: 282px;
     height: 282px;
-    border-radius: 16px;
-    background-color: olive;
-    box-shadow: 2px 2px 5px black;
+    border-radius: 5px;
+    background-color: variables.$olive-color;
+    box-shadow: variables.$box-shadow;
     
     h2 {
         padding: 5px 0;

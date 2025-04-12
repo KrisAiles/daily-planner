@@ -79,7 +79,7 @@ function deleteSchedule(index: number) {
                 <div class="time">
                     {{ item.name }}
                 </div>
-                <div class="appointment" :style="{backgroundColor: item.color ? item.color : 'white', border: item.color ? 'none' : '1px solid black'}">
+                <div class="appointment" :style="{backgroundColor: item.color ? item.color : '#808000', border: item.color ? 'none' : '1px solid white'}">
                     {{ item.description }}
                 </div>
                 <div class="edit-appointment-button">
@@ -87,16 +87,19 @@ function deleteSchedule(index: number) {
                 </div>
                 <div class="edit-appointment-container" v-if="item.edit">
                     <form @submit.prevent="onSubmitSchedule(index)">
-                        <label for="appointment">{{ item.name }}</label>
-                        <input name="appointment" v-model="item.description" type="text" size="100" required><br>
+                        <label for="appointment">{{ item.name + ' ' }}</label>
+                        <input name="appointment" v-model="item.description" type="text" size="60" required><br>
                         <label for="color">Select a color: </label>
                         <select name="color" v-model="item.color" required>
                             <option disabled value="">Please select a color</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="green">Green</option>
+                            <option value="#400080">Purple</option>
+                            <option value="#004080">Blue</option>
+                            <option value="#408000">Green</option>
+                            <option value="#800080">Pink</option>
+                            <option value="#008080">Aqua</option>
                         </select><br>
-                        <select v-model="item.duration" required>
+                        <label for="duration">Duration: </label>
+                        <select name="duration" v-model="item.duration" required>
                             <option disabled value="">Please select duration</option>
                             <option value="0">30 minutes</option>
                             <option value="1">1 hour</option>
@@ -128,8 +131,7 @@ function deleteSchedule(index: number) {
                             <option value="27">14 hours</option>
                             <option value="28">14 hours 30 minutes</option>
                         </select><br>
-                        <input class="submit" name="submit" type="submit">
-                        <button class="delete" @click="deleteSchedule(index)">Delete</button>
+                        <input class="submit" name="submit" type="submit"> <button class="delete" @click="deleteSchedule(index)">Delete</button>
                     </form>
                     <div class="close" @click="onClose(index)">X</div>
                 </div>
@@ -140,6 +142,8 @@ function deleteSchedule(index: number) {
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/variables.scss';
+
 #hourly-schedule-container {
     width: 100%;
     padding: 16px;
@@ -149,12 +153,14 @@ function deleteSchedule(index: number) {
         font-size: 32px;
         font-weight: 600;
         padding-bottom: 16px;
+        color: variables.$olive-color;
     }
 }
 
 .schedule-container {
     width: 100%;
-    border: 1px solid black;
+    box-shadow: variables.$box-shadow;
+    
 }
 
 .hour-container {
@@ -167,10 +173,12 @@ function deleteSchedule(index: number) {
 .time {
     font-size: 18px;
     font-weight: 600;
+    color: white;
+    background-color: variables.$olive-color;
     width: 60px;     
     min-height: 30px;       
     padding: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 .appointment {
@@ -178,13 +186,15 @@ function deleteSchedule(index: number) {
     min-height: 30px;
     padding: 5px;
     text-align: left;
+    color: white;
 }
 
 .edit-appointment-button {
     width: 60px;
     min-height: 30px;
     padding: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
+    background-color: variables.$olive-color;
     
     button {
         cursor: pointer;
@@ -196,11 +206,13 @@ function deleteSchedule(index: number) {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
+    height: 136px;
     z-index: 999;
     padding: 16px;
     text-align: left;
-    background-color: lightgrey;
+    background-color: variables.$blue-color;
+    border: 1px solid white;
+    color: white;
 }
 
 .close {
@@ -208,8 +220,8 @@ function deleteSchedule(index: number) {
     top: 0;
     right: 0;
     padding: 4px;
-    border-bottom: 2px solid black;
-    border-left: 2px solid black;
+    border-bottom: 2px solid white;
+    border-left: 2px solid white;
     cursor: pointer;
 }
 

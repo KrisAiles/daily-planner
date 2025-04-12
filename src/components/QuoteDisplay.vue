@@ -31,23 +31,31 @@ function cycleQuotes() {
 
 <template>
     <div id="quote-container">
-        <p>"{{ quote }}"</p>
-        <span>{{ author }}</span>
+        <div id="quote-content">
+            <p>"{{ quote }}"</p>
+            <span>{{ author }}</span>
+        </div>
     </div>
+    
 </template>
 
 <style lang="scss" scoped>
 #quote-container {
-    width: 100%;
+    flex: 1 1 auto;
+    width: 510px;
+    height: 328px;
+    padding: 23px;  
+}
+
+#quote-content {
     height: 282px;
-    padding: 23px;
     background-image: url('/quote-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    margin: 23px;
+    padding: 23px;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px black;
+    box-shadow: 2px 2px 5px black;  
 
     p {
         font-size: 32px;

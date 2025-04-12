@@ -13,10 +13,10 @@ import WeatherDisplay from './WeatherDisplay.vue';
 
 <style lang="scss" scoped>
 #time-weather-container {
+    flex: 0 1 auto;
     width: 328px;
     height: 328px;
-    padding: 23px 0;
-    /*background-color: coral;*/
+    padding: 23px;
 }
 
 </style>

@@ -33,7 +33,7 @@ function onCloseEdit() {
         <div id="notes-edit" v-if="notesEdit">
             <form @submit.prevent="noteSubmit">
                 <textarea v-model="notes" cols="100" rows="20"></textarea><br>
-                <input type="submit"><br>
+                <input name="note-input" id="note-input" type="submit" value="Save"><br>
                 <button @click="noteDelete">Delete</button>
             </form>
             <div class="close-edit" @click="onCloseEdit()">X</div>
@@ -48,8 +48,9 @@ function onCloseEdit() {
     flex-direction: column;
     padding: 16px;
     width: 100%;
-    border: 2px solid black;
-    background-color: white;
+    /*border: 2px solid black;*/
+    background-color: olive;
+    box-shadow: 2px 2px 5px black;
 }
 
 #notes-heading {

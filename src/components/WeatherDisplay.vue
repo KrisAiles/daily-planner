@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-//const currentWeather = ref({location: '', max: 0, min: 0, precip: 0, condition: '', src: ''});
 const long = ref<number>();
 const lat = ref<number>();
 const location = ref('');
@@ -10,9 +9,16 @@ const min = ref(0);
 const precip = ref(0);
 const condition = ref('');
 const source = ref('');
+const average = ref(0);
+const humidity = ref(0);
+const chance = ref(0);
+const wind = ref(0);
+const sunrise = ref('');
+const sunset = ref('');
 const showPostecodeInput = ref(false);
 const postcode = ref('');
 const showForecast = ref(false);
+const weatherHover = ref(false);
 
 function getLocation() {
     if (!navigator.geolocation) {
@@ -24,7 +30,7 @@ function getLocation() {
     }
 }
 
-function showPosition(position) {
+function showPosition(position: GeolocationPosition) {
     console.log("Latitude: " + position.coords.latitude +
     "<br>Longitude: " + position.coords.longitude);
     long.value = position.coords.longitude;
@@ -44,9 +50,7 @@ function handlePostcode() {
     console.log(postcode.value);
     const regex = /^([A-Z]{1,2}[0-9][A-Z0-9]?)\s?[0-9][A-Z]{2}$/i;
     if (regex.test(postcode.value)) {
-        console.log('correct postcode');
         postcode.value = postcode.value.split(' ').join('').toUpperCase();
-        console.log(postcode.value);
         showPostecodeInput.value = !showPostecodeInput.value;
         fetchForecast(postcode.value);
     } else {
@@ -64,30 +68,28 @@ async function fetchForecast(userLocation: string) {
     console.log(location.value);
     max.value = json.forecast.forecastday[0].day.maxtemp_c;
     console.log(max.value);
-    min.value = json.forecast.forecastday[0].day.mintemp_c
+    min.value = json.forecast.forecastday[0].day.mintemp_c;
     console.log(min.value);
-    precip.value = json.forecast.forecastday[0].day.totalprecip_mm
+    precip.value = json.forecast.forecastday[0].day.totalprecip_mm;
     console.log(precip.value);
     condition.value = json.forecast.forecastday[0].day.condition.text;
     console.log(condition.value);
     source.value = `https:${json.forecast.forecastday[0].day.condition.icon}`;
     console.log(source.value);
+    average.value = json.forecast.forecastday[0].day.avgtemp_c;
+    console.log(average.value);
+    humidity.value = json.forecast.forecastday[0].day.avghumidity;
+    console.log(humidity.value);
+    chance.value = json.forecast.forecastday[0].day.daily_chance_of_rain;
+    console.log(chance.value);
+    wind.value = json.forecast.forecastday[0].day.maxwind_mph;
+    console.log(wind.value);
+    sunrise.value = json.forecast.forecastday[0].astro.sunrise;
+    console.log(sunrise.value);
+    sunset.value = json.forecast.forecastday[0].astro.sunset;
+    console.log(sunset.value);
     showForecast.value = !showForecast.value;
 }
-
-//fetchForecast();
-
-/*if (location.value) {
-    console.log('true');
-} else {
-    console.log('false');
-}*/
-
-/*if ('geolocation' in navigator) {
-  console.log('Geolocation is Available');
-} else {
-  console.log('Geolocation is NOT Available');
-}*/
 
 </script>
 
@@ -98,22 +100,46 @@ async function fetchForecast(userLocation: string) {
             <input id="postcode" name="postcode" type="text" v-model="postcode"><br>
             <input id="submit" name="submit" type="submit">
         </form>
-        <div id="forecast-container" v-if="showForecast">
-            <div id="location">
+        <div id="forecast-container" v-if="showForecast" @mouseover="weatherHover = true" >
+            <div class="location">
                 <h3>{{ location }}</h3>
             </div>
-            <div id="forecast">                
-                <div id="forecast-details">
+            <div class="forecast">                
+                <div class="forecast-details">
                     <p>Max temperature: {{ max }}C</p>
                     <p>Min temperature: {{ min }}C</p>
                     <p>Total rainfall: {{ precip }}mm</p>
                     <p>Conditions: {{ condition }}</p>
                 </div>  
-                <div id="icon">
+                <div class="icon">
                     <img :src="source" :alt="condition" />
                 </div>
             </div>
-                      
+            <div id="forecast-expand" v-if="weatherHover" @mouseleave="weatherHover = false">
+                <div class="location">
+                    <h3>{{ location }}</h3>
+                </div>
+                <div class="forecast">                
+                    <div class="forecast-details">
+                        <p>Max temperature: {{ max }}C</p>
+                        <p>Min temperature: {{ min }}C</p>
+                        <p>Total rainfall: {{ precip }}mm</p>
+                        <p>Conditions: {{ condition }}</p>
+                        <p>Average temperature: {{ average }}C</p>
+                        <p>Humidity: {{ humidity }}%</p>
+                        <p>Chance of rain: {{ chance }}%</p>
+                        <p>Wind speed: {{ wind }}MPH</p>
+                        <p>Sunrise: {{ sunrise }}</p>
+                        <p>Sunset: {{ sunset }}</p>
+                    </div>  
+                    <div class="icon">
+                        <img :src="source" :alt="condition" />
+                    </div>
+                </div>
+                <div id="credit">
+                    <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='https://cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com"></a>
+                </div>
+            </div>     
         </div>
     </div>
 </template>
@@ -128,47 +154,73 @@ async function fetchForecast(userLocation: string) {
     height: 141px;
     border-radius: 5px;
     box-shadow: 2px 2px 5px black;
+    background-color: olive;
+    color: white;
 }
 
 #forecast-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 282px;
     height: 141px;
     padding: 8px 0 8px 8px;
 }
 
-#location {
+#forecast-expand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 282px;
+    height: 282px;
+    padding: 8px 0 8px 8px;
+    background-color: olive;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 5px;
+    z-index: 990;
+}
+
+.location {
     display: flex;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
+    margin-bottom: 8px;
 
     h3 {
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 600;
     }
 }
 
-#forecast {
+.forecast {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     width: 100%;
 }
 
-#icon {
+.icon {
     width: 64px;
 }
 
-#forecast-details {
+.forecast-details {
     width: 100%;
     text-align: left;
 
     p {
-        font-size: 18px;
+        font-size: 16px;
     }
+}
+
+#credit {
+    width: 100%;
+    text-align: center;
 }
 </style>

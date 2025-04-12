@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ScheduleDisplay from './ScheduleDisplay.vue';
 import NotesDisplay from './NotesDisplay.vue';
+import ToDoDisplay from './ToDoDisplay.vue';
 
 </script>
 
@@ -11,7 +12,7 @@ import NotesDisplay from './NotesDisplay.vue';
         </div>
         <div id="to-do-notes-container">
             <div id="to-do-container">
-                
+                <ToDoDisplay></ToDoDisplay>
             </div>
             <div id="notes-container">
                 <NotesDisplay></NotesDisplay>
@@ -21,29 +22,35 @@ import NotesDisplay from './NotesDisplay.vue';
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/variables.scss';
+
 #main-container {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
-    border-bottom: 2px solid gray;
+    border-bottom: variables.$borders;
+    background-color: white;
 }
 
 #schedule-container {
     width: 50%;
+    min-width: 382px;
     padding: 16px;
     text-align: center;
-    border-right: 2px solid gray;
+    border-right: variables.$borders;
 }
 
 #to-do-notes-container {
     width: 50%;
+    min-width: 382px;
 }
 
 #to-do-container {
+    display: flex;
     width: 100%;
     min-height: 50%;
     padding: 16px;
-    border-bottom: 2px solid gray;
-    background-color: aqua;
+    border-bottom: variables.$borders;
 }
 
 #notes-container {
