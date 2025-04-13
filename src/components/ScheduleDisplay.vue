@@ -37,7 +37,7 @@ function onSubmitSchedule(index: number) {
                 i++;
             };
             for (let j = index + 1; j <= durationIndex; j++) {
-                if (j < schedule.value.length/* && !schedule.value[j].description*/) {
+                if (j < schedule.value.length) {
                     schedule.value[j].description = '';
                     schedule.value[j].color = schedule.value[index].color;
                 };                
@@ -83,14 +83,14 @@ function deleteSchedule(index: number) {
                     {{ item.description }}
                 </div>
                 <div class="edit-appointment-button">
-                    <button :disabled="clickable" @click="toggleScheduleEdit(index)">Edit</button>
+                    <button class="button-style" :disabled="clickable" @click="toggleScheduleEdit(index)"><span v-if="!item.color">Add</span><span v-else>Edit</span></button>
                 </div>
                 <div class="edit-appointment-container" v-if="item.edit">
                     <form @submit.prevent="onSubmitSchedule(index)">
                         <label for="appointment">{{ item.name + ' ' }}</label>
-                        <input name="appointment" v-model="item.description" type="text" size="60" required><br>
+                        <input class="description-input input-style" name="appointment" v-model="item.description" type="text" required><br>
                         <label for="color">Select a color: </label>
-                        <select name="color" v-model="item.color" required>
+                        <select class="input-style" name="color" v-model="item.color" required>
                             <option disabled value="">Please select a color</option>
                             <option value="#400080">Purple</option>
                             <option value="#004080">Blue</option>
@@ -99,7 +99,7 @@ function deleteSchedule(index: number) {
                             <option value="#008080">Aqua</option>
                         </select><br>
                         <label for="duration">Duration: </label>
-                        <select name="duration" v-model="item.duration" required>
+                        <select class="input-style" name="duration" v-model="item.duration" required>
                             <option disabled value="">Please select duration</option>
                             <option value="0">30 minutes</option>
                             <option value="1">1 hour</option>
@@ -131,7 +131,7 @@ function deleteSchedule(index: number) {
                             <option value="27">14 hours</option>
                             <option value="28">14 hours 30 minutes</option>
                         </select><br>
-                        <input class="submit" name="submit" type="submit"> <button class="delete" @click="deleteSchedule(index)">Delete</button>
+                        <input class="submit button-style" name="submit" type="submit" value="Submit"> <button class="delete button-style" @click="deleteSchedule(index)">Delete</button>
                     </form>
                     <div class="close" @click="onClose(index)">X</div>
                 </div>
@@ -143,16 +143,16 @@ function deleteSchedule(index: number) {
 
 <style lang="scss" scoped>
 @use '../assets/variables.scss';
+@use '../assets/mixins.scss';
 
 #hourly-schedule-container {
     width: 100%;
-    padding: 16px;
     text-align: center;
 
     h2 {
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: 600;
-        padding-bottom: 16px;
+        padding-bottom: 1rem;
         color: variables.$olive-color;
     }
 }
@@ -167,33 +167,38 @@ function deleteSchedule(index: number) {
     position: relative;
     display: flex;
     width: 100%;
-    min-height: 30px;
+    min-height: 3.75rem;
 }
 
 .time {
-    font-size: 18px;
+    @include mixins.flex-center;
+    font-size: 1.125rem;
     font-weight: 600;
     color: white;
     background-color: variables.$olive-color;
-    width: 60px;     
-    min-height: 30px;       
-    padding: 5px;
-    border: 1px solid white;
+    width: 5.625rem;     
+    min-height: 3.75rem;       
+    padding: 0.25rem;
+    border: 0.0625rem solid white;
 }
 
 .appointment {
+    @include mixins.flex-center;
+    justify-content: flex-start;
     width: 100%;
-    min-height: 30px;
-    padding: 5px;
+    min-height: 3.75rem;
+    padding: 0.3125rem;
     text-align: left;
     color: white;
+    font-size: 1.25rem;
 }
 
 .edit-appointment-button {
-    width: 60px;
-    min-height: 30px;
-    padding: 5px;
-    border: 1px solid white;
+    @include mixins.flex-center;
+    width: 3.75rem;
+    min-height: 3.75rem;
+    padding: 0.3125rem;
+    border: 0.0625rem solid white;
     background-color: variables.$olive-color;
     
     button {
@@ -206,12 +211,12 @@ function deleteSchedule(index: number) {
     top: 0;
     left: 0;
     width: 100%;
-    height: 136px;
+    min-height: 8.5rem;
     z-index: 999;
-    padding: 16px;
+    padding: 1rem;
     text-align: left;
     background-color: variables.$blue-color;
-    border: 1px solid white;
+    border: 0.0625rem solid white;
     color: white;
 }
 
@@ -219,10 +224,13 @@ function deleteSchedule(index: number) {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 4px;
-    border-bottom: 2px solid white;
-    border-left: 2px solid white;
+    padding: 0.25rem;
+    border-bottom: 0.125rem solid white;
+    border-left: 0.125rem solid white;
     cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
 }
 
 .delete {
@@ -231,5 +239,24 @@ function deleteSchedule(index: number) {
 
 .submit {
     cursor: pointer;
+}
+
+.description-input {
+    width: 76%;
+}
+
+.input-style {
+    @include mixins.input-style;
+    margin-bottom: 0.5rem;
+}
+
+.button-style {
+    @include mixins.button-style;
+
+    span {
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
 }
 </style>

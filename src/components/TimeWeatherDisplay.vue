@@ -14,9 +14,9 @@ import WeatherDisplay from './WeatherDisplay.vue';
 <style lang="scss" scoped>
 #time-weather-container {
     flex: 0 1 auto;
-    width: 328px;
-    height: 328px;
-    padding: 23px;
+    width: 20.5rem;
+    height: 20.5rem;
+    padding: 1.4375rem;
 }
 
 </style>

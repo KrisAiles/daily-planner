@@ -72,29 +72,28 @@ setInterval(updateTime, 1000);
 
 <style lang="scss" scoped>
 @use '../assets/variables.scss';
+@use '../assets/mixins.scss';
 
 #time-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 282px;
-    height: 135px;
-    margin-bottom: 6px;
+    width: 17.625rem;
+    height: 8.4375rem;
+    margin-bottom: 0.375rem;
 }
 
 .time-display {
+    @include mixins.flex-center;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 138px;
-    height: 135px;
+    width: 8.625rem;
+    height: 8.4375rem;
     background-color: variables.$olive-color;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     box-shadow: variables.$box-shadow;
 
     span {
-        font-size: 80px;
+        font-size: 5rem;
         font-weight: 700;
         color: white;
     }
@@ -102,21 +101,21 @@ setInterval(updateTime, 1000);
 
 .time-overlay {
     position: absolute;
-    width: 138px;
-    height: 70px;
+    width: 8.625rem;
+    height: 4.375rem;
     top: 0;
     left: 0;
-    border-bottom: 1px solid white;
+    border-bottom: 0.0625rem solid white;
 }
 
 #am-pm {
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 4px 8px;
+    padding: 0.25rem 0.5rem;
 
     span {
-        font-size: 18px;
+        font-size: 1.125rem;
     }
 }
 
@@ -124,10 +123,10 @@ setInterval(updateTime, 1000);
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 4px 8px;
+    padding: 0.25rem 0.5rem;
 
     span {
-        font-size: 18px;
+        font-size: 1.125rem;
     }
 }
 

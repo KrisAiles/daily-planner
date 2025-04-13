@@ -134,20 +134,20 @@ function getCurrentMonth() {
 
 #date-container {
     flex: 0 1 auto;
-    width: 328px;
-    height: 328px;
-    padding: 23px;
+    width: 20.5rem;
+    height: 20.5rem;
+    padding: 1.4375rem;
 }
 
 #date-month {
-    width: 282px;
-    height: 282px;
-    border-radius: 5px;
+    width: 17.625rem;
+    height: 17.625rem;
+    border-radius: 0.3125rem;
     background-color: variables.$olive-color;
     box-shadow: variables.$box-shadow;
     
     h2 {
-        padding: 5px 0;
+        padding: 0.3125rem 0;
         color: white;
     }
 }
@@ -157,14 +157,11 @@ function getCurrentMonth() {
     align-items: flex-start;
     justify-content: flex-start;
     flex-wrap: wrap;
-    box-sizing: border-box;
-    width: 282px;
-    height: 242px;
-    /*border: 1px solid black;*/
-
+    width: 17.625rem;
+    height: 15.125rem;
 
     span {
-        font-size: 22px;
+        font-size: 1.375rem;
         color: white;
     }
 }

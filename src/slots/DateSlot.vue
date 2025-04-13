@@ -9,12 +9,11 @@
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/mixins.scss';
+
 .date-slot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    /*border: 1px solid black;*/
+    @include mixins.flex-center;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 </style>

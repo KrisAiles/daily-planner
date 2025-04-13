@@ -19,13 +19,12 @@ fetchQuotes();
 
 function cycleQuotes() {
     const index = count % 30;
-    console.log(index);
     quote.value = quotes.value[index].quote;
     author.value = quotes.value[index].author;
     count++;
 }
 
-//setInterval(cycleQuotes, 30000);
+setInterval(cycleQuotes, 30000);
 
 </script>
 
@@ -40,35 +39,37 @@ function cycleQuotes() {
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/variables.scss';
+
 #quote-container {
     flex: 1 1 auto;
-    width: 510px;
-    height: 328px;
-    padding: 23px;  
+    width: 31.875rem;
+    min-height: 20.5rem;
+    padding: 1.4375rem;  
 }
 
 #quote-content {
-    height: 282px;
+    min-height: 17.625rem;
     background-image: url('/quote-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    padding: 23px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px black;  
+    padding: 1.4375rem;
+    border-radius: 0.3125rem;
+    box-shadow: variables.$box-shadow;  
 
     p {
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: 700;
         color: white;
-        text-shadow: 1px 1px 2px black;
+        text-shadow: 0.0625rem 0.0625rem 0.125rem black;
     }
 
     span {
         font-style: italic;
         font-size: 20px;
         color: white;
-        text-shadow: 1px 1px 2px black;
+        text-shadow: 0.0625rem 0.0625rem 0.125rem black;
     }
 }
 

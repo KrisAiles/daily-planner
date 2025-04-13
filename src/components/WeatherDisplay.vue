@@ -21,7 +21,7 @@ const showForecast = ref(false);
 const weatherHover = ref(false);
 
 function getLocation() {
-    if (!navigator.geolocation) {
+    if ("geolocation" in navigator) {
     console.log("Geolocation available");
     navigator.geolocation.getCurrentPosition(showPosition, declineLocation);
     } else {
@@ -94,13 +94,13 @@ async function fetchForecast(userLocation: string) {
 </script>
 
 <template>
-    <div id="weather-container">
+    <div id="weather-container" :style="{boxShadow: weatherHover ? 'none' : '2px 2px 5px black'}">
         <form @submit.prevent="handlePostcode" v-if="showPostecodeInput">
-            <label for="postcode">Enter your postcode for todays forecast</label>
-            <input id="postcode" name="postcode" type="text" v-model="postcode"><br>
-            <input id="submit" name="submit" type="submit">
+            <label id="weather-label" for="postcode">Enter your postcode for todays forecast</label>
+            <input class="input-style" id="postcode" name="postcode" type="text" v-model="postcode"><br>
+            <input class="button-style" id="submit" name="submit" type="submit">
         </form>
-        <div id="forecast-container" v-if="showForecast" @mouseover="weatherHover = true" >
+        <div id="forecast-container" v-if="showForecast" @mouseover="weatherHover = true" @click="weatherHover = true" >
             <div class="location">
                 <h3>{{ location }}</h3>
             </div>
@@ -115,7 +115,7 @@ async function fetchForecast(userLocation: string) {
                     <img :src="source" :alt="condition" />
                 </div>
             </div>
-            <div id="forecast-expand" v-if="weatherHover" @mouseleave="weatherHover = false">
+            <div id="forecast-expand" v-if="weatherHover" @mouseleave="weatherHover = false" @click="weatherHover = false" >
                 <div class="location">
                     <h3>{{ location }}</h3>
                 </div>
@@ -145,16 +145,19 @@ async function fetchForecast(userLocation: string) {
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/mixins.scss';
+@use '../assets/variables.scss';
+
 #weather-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 282px;
-    height: 141px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px black;
-    background-color: olive;
+    width: 17.625rem;
+    height: 8.8125rem;
+    border-radius: 0.3125rem;
+    box-shadow: variables.$box-shadow;
+    background-color: variables.$olive-color;
     color: white;
 }
 
@@ -164,9 +167,9 @@ async function fetchForecast(userLocation: string) {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 282px;
-    height: 141px;
-    padding: 8px 0 8px 8px;
+    width: 17.625rem;
+    height: 8.8125rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
 #forecast-expand {
@@ -177,12 +180,12 @@ async function fetchForecast(userLocation: string) {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 282px;
-    height: 282px;
-    padding: 8px 0 8px 8px;
-    background-color: olive;
-    box-shadow: 2px 2px 5px black;
-    border-radius: 5px;
+    width: 17.625rem;
+    height: 20.5rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    background-color: variables.$olive-color;
+    box-shadow: variables.$box-shadow;
+    border-radius: 0.3125rem;
     z-index: 990;
 }
 
@@ -191,10 +194,10 @@ async function fetchForecast(userLocation: string) {
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 
     h3 {
-        font-size: 18px;
+        font-size: 1.125rem;
         font-weight: 600;
     }
 }
@@ -207,7 +210,7 @@ async function fetchForecast(userLocation: string) {
 }
 
 .icon {
-    width: 64px;
+    width: 4rem;
 }
 
 .forecast-details {
@@ -215,12 +218,31 @@ async function fetchForecast(userLocation: string) {
     text-align: left;
 
     p {
-        font-size: 16px;
+        font-size: 1rem;
     }
 }
 
 #credit {
     width: 100%;
     text-align: center;
+    padding: 0.5rem;
+}
+
+.button-style {
+    @include mixins.button-style;
+    margin-top: 0.5rem;
+}
+
+.input-style {
+    @include mixins.input-style;
+}
+
+#postcode {
+    margin-top: 0.5rem;
+}
+
+#weather-label {
+    font-size: 0.875rem;
+    font-weight: 600;
 }
 </style>

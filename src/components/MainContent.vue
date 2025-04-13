@@ -23,6 +23,7 @@ import ToDoDisplay from './ToDoDisplay.vue';
 
 <style lang="scss" scoped>
 @use '../assets/variables.scss';
+@use '../assets/mixins.scss';
 
 #main-container {
     display: flex;
@@ -34,30 +35,40 @@ import ToDoDisplay from './ToDoDisplay.vue';
 
 #schedule-container {
     width: 50%;
-    min-width: 382px;
-    padding: 16px;
+    min-width: 20.5rem;
+    min-height: 114.125rem;
+    padding: 1rem;
     text-align: center;
     border-right: variables.$borders;
+
+    @include mixins.mobile {
+        border-right: none;
+        border-bottom: variables.$borders;
+        width: 100%;
+    }
 }
 
 #to-do-notes-container {
     width: 50%;
-    min-width: 382px;
+    min-width: 20.5rem;
+
+    @include mixins.mobile {
+        width: 100%;
+    }
 }
 
 #to-do-container {
     display: flex;
     width: 100%;
-    min-height: 50%;
-    padding: 16px;
+    min-height: 57.0625rem;
+    padding: 1rem;
     border-bottom: variables.$borders;
 }
 
 #notes-container {
-    display: flex;
     width: 100%;
-    min-height: 50%;
-    padding: 16px;
+    min-height: 57.0625rem;
+    padding: 1rem;
 }
 
 </style>

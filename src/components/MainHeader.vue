@@ -19,7 +19,7 @@
 
     h1 {
         color: variables.$olive-color;
-        font-size: 32px;
+        font-size: 2rem;
         font-weight: 600;
     }
 }

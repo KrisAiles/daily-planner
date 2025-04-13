@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const toDoItems = ref<{description: string, id: number, completed: boolean, edit: boolean}[]>([/*{description: 'this is a to do item', id: 1234, completed: false, edit: false}, {description: 'this is another to do item', id: 4321, completed: false, edit: false}*/]);
+const toDoItems = ref<{description: string, id: number, completed: boolean, edit: boolean}[]>([]);
 const addOpen = ref(false);
+const editOpen = ref(false);
 const addInput = ref('');
 const id = ref(0)
 
@@ -26,14 +27,17 @@ function toggleAddOpen() {
 
 function toggleToDoEdit(index: number) {
     toDoItems.value[index].edit = !toDoItems.value[index].edit;
+    editOpen.value = !editOpen.value;
 }
 
 function onSubmitToDo(index: number) {    
     toDoItems.value[index].edit = !toDoItems.value[index].edit;
+    editOpen.value = !editOpen.value;
 }
 
 function deleteToDo(index: number) {
     toDoItems.value.splice(index, 1);
+    editOpen.value = !editOpen.value;
 }
 
 </script>
@@ -42,28 +46,29 @@ function deleteToDo(index: number) {
     <div id="to-do-display-container">
         <div id="to-do-header">
             <h2>To-Do List</h2>
-            <button @click="toggleAddOpen">Add</button>
+            <button class="button-style" @click="toggleAddOpen" :disabled="editOpen">Add</button>          
             <div id="to-do-add-container" v-if="addOpen">
                 <form @submit.prevent="addToDoItem">
                     <label for="add-description">To-do: </label>
-                    <input name="add-description" id="add-description" type="text" v-model="addInput" size="60" required /> <input name="submit" id="submit" type="submit" value="Add" /> <button @click.prevent="closeToDoAdd">Cancel</button>
+                    <input name="add-description" class="add-description input-style" type="text" v-model="addInput" required /> <input class="button-style" name="submit" id="submit" type="submit" value="Add" /> <button class="button-style" @click.prevent="closeToDoAdd">Cancel</button>
                 </form>
             </div>
         </div>
         <div class="to-do-item" v-for="(item, index) in toDoItems" :key="item.id">
             <div class="to-do-check">
-                <input type="checkbox" name="completed" id="completed" v-model="item.completed" />
+                <input type="checkbox" name="completed" class="completed" v-model="item.completed" :disabled="addOpen" />
             </div>
             <div class="to-do-description" :style="{color: item.completed ? 'lightgray' : 'white', textDecorationLine: item.completed ? 'line-through' : 'none'}">
                 <p>{{ item.description }}</p>
             </div>
             <div class="to-do-edit">
-                <button @click="toggleToDoEdit(index)">Edit</button>
+                <button class="button-style" @click="toggleToDoEdit(index)" :disabled="addOpen">Edit</button>
             </div>
             <div class="to-do-edit-container" v-if="item.edit">
                 <form @submit.prevent="onSubmitToDo(index)">
                     <label for="description">To-do: </label>
-                    <input name="description" id="description" type="text" v-model="item.description" size="50" required /> <input name="submit" id="submit" type="submit" value="Save" /> <button @click="deleteToDo(index)">Delete</button>
+                    <input name="description" class="edit-description input-style" type="text" v-model="item.description" required />
+                    <input name="submit" class="button-style" id="submit" type="submit" value="Save" /> <button class="button-style" @click="deleteToDo(index)">Delete</button>
                 </form>
             </div>
         </div>
@@ -72,6 +77,7 @@ function deleteToDo(index: number) {
 
 <style lang="scss" scoped>
 @use '../assets/variables.scss';
+@use '../assets/mixins.scss';
 
 #to-do-display-container {
     width: 100%;
@@ -79,41 +85,61 @@ function deleteToDo(index: number) {
 }
 
 #to-do-header{
+    @include mixins.flex-center;
     position: relative;
     text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+
+    h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: variables.$olive-color;
+        padding-right: 1rem;
+    }
 }
 
 #to-do-add-container {
+    @include mixins.flex-center;
     position: absolute;
     top: 0;
     left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px;
-    width: 99%;
-    height: 50px;
+    padding: 0.5rem;
+    width: 100%;
+    min-height: 3.75rem;
     background-color: variables.$blue-color;
     color: white;
+    z-index: 800;
+
+    label {
+        display: inline-block;
+    }
+
+    @include mixins.tablet {
+        font-size: 1rem;
+    }
+
+    @include mixins.mobile {
+        font-size: 1rem;
+    }
 }
 
 .to-do-item {
+    @include mixins.flex-center;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
-    /*border: 2px solid black;*/
-    box-shadow: 2px 2px 5px black;
-    margin: 8px 0;
-    padding: 8px;
+    min-height: 3.75rem;
+    box-shadow: variables.$box-shadow;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
     background-color: olive;
     color: white;
+    font-size: 1.25rem;
 }
 
 .to-do-check {
     text-align: center;
-    width: 50px;
+    width: 3.125rem;
 }
 
 .to-do-description {
@@ -121,20 +147,49 @@ function deleteToDo(index: number) {
 }
 
 .to-do-edit {
-    width: 50px;
+    width: 3.125rem;
     text-align: center;
 }
 
 .to-do-edit-container {
+    @include mixins.flex-center;
     position: absolute;
-    display: flex;
     top: 0;
     left: 0;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px;
+    text-align: center;
+    padding: 0.5rem;
     width: 100%;
+    min-height: 3.75rem;
     background-color: variables.$blue-color;
     color: white;
+    z-index: 750;
+
+    label {
+        display: inline-block;
+    }
+
+    @include mixins.tablet {
+        font-size: 1rem;
+    }
+
+    @include mixins.mobile {
+        font-size: 1rem;
+    }
+}
+
+.add-description {
+    width: 80%;
+}
+
+.edit-description {
+    width: 80%;
+}
+
+.button-style {
+    @include mixins.button-style;
+}
+
+.input-style {
+    @include mixins.input-style;
 }
 </style>
