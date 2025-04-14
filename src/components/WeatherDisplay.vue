@@ -61,7 +61,7 @@ function handlePostcode() {
 }
 
 async function fetchForecast(userLocation: string) {
-    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=3b232715630942be928121139251004&q=${userLocation}&days=1&aqi=no&alerts=no`);
+    const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=3b232715630942be928121139251004&q=${userLocation}&days=1&aqi=no&alerts=no`);
     const json = await response.json();
     console.log(json);
     location.value = json.location.name;
