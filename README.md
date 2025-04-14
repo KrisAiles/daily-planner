@@ -1,63 +1,41 @@
-# daily-planner
+# DAILY PLANNER VUE PROJECT
 
-This template should help get you started developing with Vue 3 in Vite.
+## Project Brief
 
-## Recommended IDE Setup
+Create a daily planner in VUE.js that shows the user the time, date, weather and allows the user to add, edit and delete schedule items, to-do list items and notes.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+The app should request the users location and use it to call a weather API to display the local forecast, retrieve a list of motivational quotes from an API and cycle through and display the returned quotes.
 
-## Type Support for `.vue` Imports in TS
+Using CRUD(Create, Read, Update and Delete) principles uers should be able to add, remove and delete items from a daily schedule, a to-do list and a notes section.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Project Requirements
 
-## Customize configuration
+- Build a web app using VUE.js
+- Integrate with a weather API and quote API
+- Add CRUD elements
+- Version control your application with Git and host the repository on GitHub
+- Deploy your application
+- Write a README (using Markdown) that documents your project, including:
+  - The purpose of your project
+  - Technologies used
+  - Features
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Features
 
-## Project Setup
+Minimum requirements:
 
-```sh
-npm install
-```
+- Users will be able to see the current time and date
+- Users can use their location to get local weather forecast
+- Users will get motivational quotes
+- Users will be able to add, edit and delete entries in a daily schedule, to-do list and notes section
 
-### Compile and Hot-Reload for Development
+## Technologies Used
 
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-
-```
-# daily-planner
+- HTML
+- SCSS
+- TypeScript
+- VUE.js
+- HTTP Requests and Responses
+- Command Line
+- Git and GitHub
+- Markdown
